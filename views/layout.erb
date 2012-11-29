@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>Super Simple Realguard Client</title>
+    <meta charset="utf-8" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  </head>
+  <body>
+    <h1> welcome on real client</h1>
+    <% if signed_in? %>
+    <h2>hello <%= current_user.email %></h2>
+    <%= "><img src='http://graph.facebook.com/#{current_user.services.first['uid']}/picture?type=large' /><".center(40, '=') %>
+      <a href='/realguard/users.json' target='_self'>list all users</a>
+      <p>
+        Your access token: <code><%= session[:access_token] %></code>
+        (<a href="/refresh_token" target='_self' title="<%= session[:refresh_token] %>">refresh</a>)
+      </p>
+      <a href='/logout' target='_self'>Log me out</a>
+    <% else %>
+      <a href='/login' target='_self'>Login to realguard</a>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>
